@@ -1,0 +1,6 @@
+one:
+  amount: 100
+  status: 0
+  owed: alice
+  owing: bob
+  project: my_project

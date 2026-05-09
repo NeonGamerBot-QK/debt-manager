@@ -1,0 +1,11 @@
+alice:
+  name: Alice
+  email: alice@example.com
+  slack_id: U0000000001
+  role: 0
+
+bob:
+  name: Bob
+  email: bob@example.com
+  slack_id: U0000000002
+  role: 0
