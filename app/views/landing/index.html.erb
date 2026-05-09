@@ -7,9 +7,7 @@
      Wana manage those weighted projects you owe hack club
     </p>
     <div class="mt-10 flex items-center justify-center gap-x-6">
-      <a href="/wow_i_should_be_using_smt_else_here" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90">
-        Get Started
-      </a>
+<%= button_to "Get Started", "/auth/hack_club", method: :post, data: { turbo: false }, class: "rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90" %>
     </div>
   </div>
 </section>
