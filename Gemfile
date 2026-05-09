@@ -68,3 +68,4 @@ end
 gem "pundit"
 gem "dotenv"
 gem "tailwindcss-rails", "~> 4.4"
+gem "shadcn-ui"
