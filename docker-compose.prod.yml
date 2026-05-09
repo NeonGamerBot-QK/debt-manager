@@ -1,0 +1,36 @@
+name: debt-manager-prod
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: debt_manager
+      POSTGRES_PASSWORD: ${DEBT_MANAGER_DATABASE_PASSWORD}
+      POSTGRES_DB: debt_manager_production
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U debt_manager"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: production
+    environment:
+      DEBT_MANAGER_DATABASE_PASSWORD: ${DEBT_MANAGER_DATABASE_PASSWORD}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      DATABASE_URL: postgres://debt_manager:${DEBT_MANAGER_DATABASE_PASSWORD}@db:5432/debt_manager_production
+      RAILS_ENV: production
+    ports:
+      - "80:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_prod_data:

@@ -1,0 +1,31 @@
+name: debt-manager-test
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: debt_manager
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: debt_manager_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U debt_manager"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  test:
+    build:
+      context: .
+      target: development
+    environment:
+      DATABASE_URL: postgres://debt_manager:password@db:5432/debt_manager_test
+      RAILS_ENV: test
+    volumes:
+      - .:/rails
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "bundle exec rails db:prepare && bundle exec rails test"
