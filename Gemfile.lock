@@ -419,6 +419,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   stimulus-rails
+  tailwind_merge
   tailwindcss-rails (~> 4.4)
   thruster
   turbo-rails
