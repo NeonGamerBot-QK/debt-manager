@@ -1,5 +1,5 @@
 - [ ] hackatime stats duh
-- [ ] hca auth
+- [x] hca auth
 - [ ] pull ysws names from public airbable or otter
 - [ ] in db project tracking (and how much they in debt :fear:)
 - [ ] ysws org backend
