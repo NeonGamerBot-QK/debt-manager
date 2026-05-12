@@ -7,4 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+  def require_user
+      redirect_to root_path, alert: "Please sign in to access the dashboard" unless current_user
+    end
 end

@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     return redirect_to root_path, alert: "Authentication failed" unless auth
 
     user = User.find_or_create_by(slack_id: auth['uid']) do |u|
-      u.name = auth['info']['name']
+      u.name = auth['info']['first_name']
       u.email = auth['info']['email']
     end
 
