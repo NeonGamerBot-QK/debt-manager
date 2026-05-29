@@ -1,6 +1,6 @@
   class DashController < ApplicationController
     before_action :require_user
     def index
-    end
-    
+      @projects = current_user.projects
+    end 
   end
