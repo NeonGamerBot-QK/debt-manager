@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root "landing#index"
   get '/dash', to: 'dash#index', as: :dash
+  resources :projects
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: "logout"
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
