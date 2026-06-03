@@ -1,0 +1,38 @@
+<% content_for :title, "New Project" %>
+
+<section class="px-6 lg:px-8 py-10 max-w-lg mx-auto">
+  <h1 class="text-2xl font-bold tracking-tight text-foreground sm:text-4xl mb-6">New Project</h1>
+
+  <%= form_with model: @project, url: projects_path, class: "flex flex-col gap-4" do |f| %>
+    <div class="flex flex-col gap-1">
+      <%= f.label :name, class: "text-sm font-medium text-foreground" %>
+      <%= f.text_field :name, placeholder: "Project name", required: true,
+            class: "rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" %>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <%= f.label :description, class: "text-sm font-medium text-foreground" %>
+      <%= f.text_area :description, placeholder: "What's this project about?", rows: 4,
+            class: "rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none" %>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="text-sm font-medium text-foreground">Hackatime projects</label>
+      <input type="text" name="hackatime_projects" placeholder="e.g. my-app, side-project, hackathon"
+        class="rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+      <p class="text-xs text-muted-foreground">Comma-separated list of Hackatime project names</p>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="text-sm font-medium text-foreground">How many hours are you in debt?</label>
+      <input type="number" name="hours_owed" min="0" step="0.5" placeholder="e.g. 10"
+        class="rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+    </div>
+
+    <div class="flex items-center gap-4 mt-2">
+      <%= f.submit "Create Project",
+            class: "rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 cursor-pointer" %>
+      <%= link_to "Cancel", dash_path, class: "text-sm text-muted-foreground hover:text-foreground" %>
+    </div>
+  <% end %>
+</section>
