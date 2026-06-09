@@ -11,9 +11,12 @@
   placeholder is an empty array calm down
 <%
 =end%>
-    <% for item in [] %>
+    <% for item in @projects %>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-            <%= item %>
+<h1>
+            <%= item.name %> 
+</h1>
+<%= link_to "View", project_path(item), class: "text-sm font-semibold leading-6 text-primary" %>
         </div>
     <% end %> 
     

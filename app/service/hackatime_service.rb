@@ -9,7 +9,7 @@ class HackatimeService
     end
   end
 
-  def fetch_stats(start_date, end_date)
+  def fetch_stats(start_date, end_date, project)
     response = connection.get("users/#{hackatime_uid}/stats", params)
     return nil unless response.success?
 
