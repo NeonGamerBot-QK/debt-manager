@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_09_205140) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_10_035027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "debts", force: :cascade do |t|
     t.integer "amount", null: false
     t.datetime "created_at", null: false
-    t.bigint "owed_id", null: false
+    t.bigint "owed_id"
     t.bigint "owing_id", null: false
     t.bigint "project_id", null: false
     t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
+    t.string "ysws_program"
     t.index ["owed_id"], name: "index_debts_on_owed_id"
     t.index ["owing_id"], name: "index_debts_on_owing_id"
     t.index ["project_id"], name: "index_debts_on_project_id"

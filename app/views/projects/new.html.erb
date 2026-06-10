@@ -23,11 +23,51 @@
       <p class="text-xs text-muted-foreground">Comma-separated list of Hackatime project names</p>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <label class="text-sm font-medium text-foreground">How many hours are you in debt?</label>
-      <input type="number" name="hours_owed" min="0" step="0.5" placeholder="e.g. 10"
-        class="rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Debts</label>
+
+      <div id="debts-container" class="flex flex-col gap-2"></div>
+
+      <button type="button" id="add-debt-btn"
+        class="self-start rounded-md border border-dashed border-input px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:border-foreground transition-colors">
+        + Add debt
+      </button>
     </div>
+
+    <template id="debt-row-template">
+      <div class="debt-row flex flex-wrap gap-2 items-center rounded-md border border-input bg-background/50 px-3 py-2">
+        <select name="debts[][owing_id]"
+          class="rounded border border-input bg-background px-2 py-1 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+          <% @users.each do |u| %>
+            <option value="<%= u.id %>"><%= u.name %></option>
+          <% end %>
+        </select>
+        <span class="text-sm text-muted-foreground">owes</span>
+        <select name="debts[][ysws_program]"
+          class="rounded border border-input bg-background px-2 py-1 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+          <% @ysws_programs.each do |program| %>
+            <option value="<%= program %>"><%= program %></option>
+          <% end %>
+        </select>
+        <input type="number" name="debts[][amount]" min="0" step="0.5" placeholder="hours"
+          class="w-24 rounded border border-input bg-background px-2 py-1 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+        <span class="text-xs text-muted-foreground">hrs</span>
+        <button type="button" class="remove-debt-btn ml-auto text-xs text-muted-foreground hover:text-destructive transition-colors">Remove</button>
+      </div>
+    </template>
+
+    <script>
+      const container = document.getElementById("debts-container");
+      const template = document.getElementById("debt-row-template");
+
+      document.getElementById("add-debt-btn").addEventListener("click", () => {
+        const row = template.content.cloneNode(true);
+        row.querySelector(".remove-debt-btn").addEventListener("click", (e) => {
+          e.target.closest(".debt-row").remove();
+        });
+        container.appendChild(row);
+      });
+    </script>
 
     <div class="flex items-center gap-4 mt-2">
       <%= f.submit "Create Project",

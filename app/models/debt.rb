@@ -1,5 +1,5 @@
 class Debt < ApplicationRecord
-  belongs_to :owed, class_name: "User"
+  belongs_to :owed, class_name: "User", optional: true
   belongs_to :owing , class_name: "User"
   belongs_to :project
 
