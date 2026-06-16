@@ -90,6 +90,8 @@ production:
     database: debt_manager_production
     username: debt_manager
     password: <%= ENV["DEBT_MANAGER_DATABASE_PASSWORD"] %>
+    host: <%= ENV.fetch("DB_HOST", "localhost") %>
+    port: <%= ENV.fetch("DB_PORT", 5432) %>
   cache:
     <<: *primary_production
     database: debt_manager_production_cache

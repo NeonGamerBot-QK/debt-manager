@@ -25,8 +25,11 @@ services:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       DATABASE_URL: postgres://debt_manager:${DEBT_MANAGER_DATABASE_PASSWORD}@db:5432/debt_manager_production
       RAILS_ENV: production
-    ports:
-      - "80:80"
+      DB_HOST: db
+      HACK_CLUB_CLIENT_ID: ${HACK_CLUB_CLIENT_ID}
+      HACK_CLUB_CLIENT_SECRET: ${HACK_CLUB_CLIENT_SECRET}
+    expose:
+      - "3000"
     depends_on:
       db:
         condition: service_healthy

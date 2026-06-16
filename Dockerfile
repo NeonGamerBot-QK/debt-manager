@@ -33,7 +33,7 @@ RUN bundle install && \
 
 COPY . .
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 HACK_CLUB_CLIENT_ID=dummy HACK_CLUB_CLIENT_SECRET=dummy ./bin/rails assets:precompile
 
 # ── Development stage ──────────────────────────────────────────────────────────
 # All gems installed (including dev/test), no asset precompile, runs as root
@@ -59,6 +59,10 @@ CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
 # ── Production stage ───────────────────────────────────────────────────────────
 FROM base AS production
 
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_WITHOUT="development"
+
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
 USER 1000:1000
@@ -67,5 +71,5 @@ COPY --chown=rails:rails --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --chown=rails:rails --from=build /rails /rails
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
