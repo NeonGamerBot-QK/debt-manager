@@ -32,7 +32,7 @@ RUN bundle install \
 
 COPY . .
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
-RUN SECRET_KEY_BASE_DUMMY=1 HACK_CLUB_CLIENT_ID=dummy HACK_CLUB_CLIENT_SECRET=dummy ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # ── Development stage ──────────────────────────────────────────────────────────
 # All gems installed (including dev/test), no asset precompile, runs as root
