@@ -1,24 +1,34 @@
-# README
+# debt-manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+tracking ysws debt so it doesn't spiral. login with your hack club account, link your hackatime projects, and see what you owe (or are owed) across ysws programs.
 
-Things you may want to cover:
+## stack
 
-* Ruby version
+- rails 8 + postgresql
+- tailwind css
+- hack club oauth (hca)
+- docker for prod
 
-* System dependencies
+## running locally
 
-* Configuration
+```sh
+cp .env.example .env
+# fill in HACK_CLUB_CLIENT_ID and HACK_CLUB_CLIENT_SECRET
 
-* Database creation
+bin/dev  # runs rails + tailwind watcher
+```
 
-* Database initialization
+## env vars
 
-* How to run the test suite
+| var | what it is |
+|-----|------------|
+| `HACK_CLUB_CLIENT_ID` | oauth app id from Hack Club |
+| `HACK_CLUB_CLIENT_SECRET` | oauth app secret |
+| `RAILS_MASTER_KEY` | copy from `config/master.key` |
+| `DEBT_MANAGER_DATABASE_PASSWORD` | postgres password (prod only) |
 
-* Services (job queues, cache servers, search engines, etc.)
+## data model
 
-* Deployment instructions
-
-* ...
+- **user** — authenticated via hca, has a slack id + email
+- **project** — belongs to a user, links to hackatime project names
+- **debt** — amount owed between two users on a project, tied to a ysws program. statuses: `pending → approved / rejected / paid / canceled`
